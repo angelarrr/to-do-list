@@ -8,7 +8,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
 // Minify index
-gulp.task('minify', function() {
+gulp.task('html', function() {
 	return gulp.src('site/index.html')
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('dist/'))
@@ -18,7 +18,7 @@ gulp.task('minify', function() {
 gulp.task('scripts', function() {
 	return browserify('site/js/app.js')
 		.bundle()
-		.pipe(source('site/app.js'))
+		.pipe(source('app.js'))
 		.pipe(buffer())
 		.pipe(uglify())
 		.pipe(gulp.dest('dist/js'));
@@ -27,9 +27,9 @@ gulp.task('scripts', function() {
 // concat css
 gulp.task('styles', function() {
 	return gulp.src('site/css/*.css')
-		.pipe(concat('styles.css'))
+		.pipe(concat('style.css'))
 		.pipe(gulp.dest('dist/css'));
 });
 
 // build
-gulp.task('build', [minify, scripts, styles]);
+gulp.task('build', ['html', 'scripts', 'styles']);

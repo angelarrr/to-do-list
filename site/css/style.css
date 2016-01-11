@@ -33,14 +33,33 @@ h1 {
 }
 
 .list-todos li {
-	margin: 16px 0;
+	padding: 16px 0;
+	border: solid 1px #eeeeee;
 }
 
-input[type="checkbox"] {
+.view {
+	padding-left: 10px;
+}
+
+.list-todos input[type="checkbox"] {
 	margin-right: 20px;
 }
 
-input[type="checkbox"]:checked + label {
+.list-todos input[type="checkbox"]:checked + label {
 	text-decoration: line-through;
+	color: gray;
+}
+
+/* 
+.main-content > input[type="checkbox"]{
+	display: none;
+} */
+
+.main-content {
+	margin-top: 16px;
+}
+
+.main-content > input[type="checkbox"] + label:hover {
+	cursor: pointer;
 	color: gray;
 }

@@ -24,20 +24,25 @@
         </section>
 
         <section class="main-content">
+            <input name="toggle-all" class="toggle-all" id="toggle-all" type="checkbox" />
+            <label for "toggle-all">Mark all as completed</label>
             <ul class="list-todos"></ul>
         </section>
 
         <section class="footer">
-            <p>Items left: 0</p>
         </section>
     </div>
 
-    <!-- template -->
+    <!-- templates -->
     <script type="text/template" id="todos-template">
         <div class="view">
-            <input class="toggle" type="checkbox">
+            <input class="toggle" type="checkbox" <%= completed ? 'checked="checked"' : '' %> />
             <label><%- task %></label>
         </div>
+    </script>
+    
+    <script type="text/template" id="count-template">
+        <span class="todo-count"><%= remaining === 1 ? 'item' : 'items' %> left: <strong><%= remaining %></strong></span>
     </script>
 
     <!-- scripts -->

@@ -5,6 +5,7 @@ html, body {
 
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
 }
 
 h1 {
@@ -50,16 +51,48 @@ h1 {
 	color: gray;
 }
 
-/* 
-.main-content > input[type="checkbox"]{
+.complete-all {
+	text-align: right;
+}
+
+.complete-all > input[type="checkbox"]{
 	display: none;
-} */
+}
+
+.complete-all > input[type="checkbox"] + label {
+	color: green;
+}
+
+.complete-all > input[type="checkbox"] + label:hover {
+	cursor: pointer;
+	color: gray;
+}
 
 .main-content {
 	margin-top: 16px;
 }
 
-.main-content > input[type="checkbox"] + label:hover {
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 100%;
+	vertical-align: baseline;
+	-webkit-appearance: none;
+	appearance: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+.list-todos li:hover .destroy {
+	display: block;
+	float: right;
+	margin-right: 10px;
+}
+
+.destroy {
+	display: none;
 	cursor: pointer;
-	color: gray;
 }

@@ -19,10 +19,28 @@ h1 {
 	margin: 0 auto;
 }
 
-.add-items {
+.add-todo {
 	width: 100%;
 	border: solid 1px #eeeeee;
 	outline: none;
 	padding: 16px;
 	box-sizing: border-box;
+}
+
+.list-todos {
+	list-style: none;
+	padding-left: 0;
+}
+
+.list-todos li {
+	margin: 16px 0;
+}
+
+input[type="checkbox"] {
+	margin-right: 20px;
+}
+
+input[type="checkbox"]:checked + label {
+	text-decoration: line-through;
+	color: gray;
 }

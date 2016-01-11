@@ -20,7 +20,7 @@
     <div class="my-todo">
         <h1>to do list</h1>
         <section class="input-area">
-            <input type="text" class="add-items" id="add-items" name="add-items" placeholder="add a new todo here" autofocus>
+            <input type="text" class="add-todo" id="add-todo" name="add-todo" placeholder="add a new todo here and press enter" autofocus>
         </section>
 
         <section class="main-content">
@@ -31,6 +31,14 @@
             <p>Items left: 0</p>
         </section>
     </div>
+
+    <!-- template -->
+    <script type="text/template" id="todos-template">
+        <div class="view">
+            <input class="toggle" type="checkbox">
+            <label><%- task %></label>
+        </div>
+    </script>
 
     <!-- scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>

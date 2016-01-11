@@ -45,6 +45,11 @@ app.toDoView = Backbone.View.extend({
 	template: _.template($('#todos-template').html()),
 	events: {
 		"click .toggle": "toggleComplete",
+		"click .destroy": "clear" 
+	},
+	initialize: function(){
+		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 	render: function(){
 		this.$el.html(this.template(this.model.toJSON()));
@@ -54,13 +59,16 @@ app.toDoView = Backbone.View.extend({
 	// toggle completed state of model
 	toggleComplete: function(){
 		this.model.toggle();
+	},
+	// remove the item
+	clear: function(){
+		this.model.destroy();
 	}
 });
 
 // render full list of todos
 app.toDoAppView = Backbone.View.extend({
 	el: '.my-todo',
-
 	countTemplate: _.template($('#count-template').html()),
 
 	// events for adding new todo, checking all boxes
@@ -71,7 +79,7 @@ app.toDoAppView = Backbone.View.extend({
 
 	initialize: function(){
 		this.input = this.$('#add-todo');
-		this.allChecks = this.$('#toggle-all')[0];
+		this.allBoxes = this.$('#toggle-all')[0];
 
 		this.listenTo(app.todos, 'add', this.addOne);
 		this.listenTo(app.todos, 'reset', this.addAll);
@@ -88,24 +96,22 @@ app.toDoAppView = Backbone.View.extend({
 		var remaining = app.todos.remaining().length;
 
 		if (app.todos.length) {
+			this.main.show();
+			this.footer.show();
 			this.footer.html(this.countTemplate({ completed: completed, remaining: remaining }));
+		} else {
+			this.main.hide();
+			this.footer.hide();
 		}
 
-		this.allChecks = !remaining;
-	},
-
-	newAttributes: function(){
-		return {
-			task: this.input.val().trim(),
-			completed: false
-		}
+		this.allBoxes.checked = !remaining;
 	},
 	// when press enter, create new todo model
 	createOnEnter: function(e){
 		if (e.which !== 13 || !this.input.val().trim() ){
 			return;
 		}
-		app.todos.create(this.newAttributes());
+		app.todos.create({task: this.input.val()});
 		this.input.val('');
 	},
 	// add single todo item
@@ -119,11 +125,11 @@ app.toDoAppView = Backbone.View.extend({
 		app.todos.each(this.addOne, this);
 	},
 	markAllCompleted: function(){
-		var completed = this.allChecks.checked;
+		var completed = this.allBoxes.checked;
 
 		app.todos.each(function(todo){
 			todo.save({
-				completed: completed
+				'completed': completed
 			});
 		});
 	}
